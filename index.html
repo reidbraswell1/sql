@@ -203,9 +203,9 @@ ORDER BY database.employees.FirstName ASC,
 6 rows in set (0.046 sec)
                         </pre>
                     </code>
-                <p class="text-center">Categories table description</p>
-                <code>
-                    <pre>
+                    <p class="text-center">Categories table description</p>
+                    <code>
+                        <pre>
 +--------------+-------------+------+-----+---------+----------------+
 | Field        | Type        | Null | Key | Default | Extra          |
 +--------------+-------------+------+-----+---------+----------------+
@@ -213,11 +213,26 @@ ORDER BY database.employees.FirstName ASC,
 | Name         | varchar(45) | NO   |     | NULL    |                |
 | DepartmentID | int(11)     | NO   | MUL | NULL    |                |
 +--------------+-------------+------+-----+---------+----------------+
-3 rows in set (0.045 sec)
+3 rows in set (0.044 sec)
+                        </pre>
+                    </code>
+                    <p class="text-center">Reviews table description</p>
+                <code>
+                    <pre>
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| ReviewID  | int(11)      | NO   | PRI | NULL    | auto_increment |
+| ProductID | int(11)      | YES  | MUL | NULL    |                |
+| Reviewer  | varchar(45)  | YES  |     | NULL    |                |
+| Rating    | int(11)      | YES  |     | NULL    |                |
+| Comment   | varchar(250) | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+5 rows in set (0.045 sec)
                     </pre>
                 </code>
                 <ol>
-                    <li>1. Joins: Select all the computers from the products table where the category name is Computers
+                    <li>Joins: Select all the computers from the products table where the category name is Computers
                         <code>
                             <pre>
 SELECT database.products.ProductID AS 'Product ID',
@@ -228,6 +243,18 @@ INNER JOIN database.categories ON
            database.products.CategoryID = database.categories.CategoryID
 WHERE categories.Name = 'Computers';
                             </pre>
+                        </code>
+                    </li>
+                    <li>Joins: Find all product names, product prices, and product ratings that have a reviews rating of 5
+                        <code>
+SELECT database.products.Name AS 'Product Name', 
+       database.products.Price AS 'Product Price',
+       database.reviews.Rating AS 'Product Review' 
+FROM database.products
+INNER JOIN database.reviews ON 
+           database.products.ProductID = database.reviews.ProductID
+WHERE database.reviews.Rating = 5;
+                            <pre></pre>
                         </code>
                     </li>
                 </ol>
