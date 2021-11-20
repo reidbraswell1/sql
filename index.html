@@ -216,6 +216,18 @@ ORDER BY database.employees.FirstName ASC,
 3 rows in set (0.044 sec)
                         </pre>
                     </code>
+                    <p class="text-center">Departments table description</p>
+                    <code>
+                        <pre>
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| DepartmentID | int(11)     | NO   | PRI | NULL    | auto_increment |
+| Name         | varchar(45) | YES  |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+2 rows in set (0.046 sec)
+                        </pre>
+                    </code>
                     <p class="text-center">Reviews table description</p>
                 <code>
                     <pre>
@@ -232,7 +244,8 @@ ORDER BY database.employees.FirstName ASC,
                     </pre>
                 </code>
                 <ol>
-                    <li>Joins: Select all the computers from the products table where the category name is Computers
+                    <li>Joins: Select all the computers from the products table where the category name is Computers<br>
+                        A simple inner join for products that are categorized as computers.
                         <code>
                             <pre>
 SELECT database.products.ProductID AS 'Product ID',
@@ -245,8 +258,10 @@ WHERE categories.Name = 'Computers';
                             </pre>
                         </code>
                     </li>
-                    <li>Joins: Find all product names, product prices, and product ratings that have a reviews rating of 5
+                    <li>Joins: Find all product names, product prices, and product ratings that have a reviews rating of 5<br>
+                        An simple inner join only on products that have a review of 5.
                         <code>
+                            <pre>
 SELECT database.products.Name AS 'Product Name', 
        database.products.Price AS 'Product Price',
        database.reviews.Rating AS 'Product Review' 
@@ -254,7 +269,34 @@ FROM database.products
 INNER JOIN database.reviews ON 
            database.products.ProductID = database.reviews.ProductID
 WHERE database.reviews.Rating = 5;
-                            <pre></pre>
+                            </pre>
+                        </code>
+                    </li>
+                    <li>Joins: Find the name of the department, and the name of the category for appliances and games<br>
+                        A simple inner join on departments and categories where the category is in Appliances and Games
+                        <code>
+                            <pre>
+SELECT database.departments.Name AS 'Dept Name',
+       database.categories.Name AS 'Category Name'
+FROM database.departments 
+INNER JOIN database.categories ON 
+           database.departments.DepartmentID = database.categories.DepartmentID
+WHERE database.categories.Name IN ('Appliances','Games');
+ 
+                            </pre>
+                        </code>
+                    </li>
+                    <li>Joins: Find The Product Name, Total # Sold, And Total Price Sold, And Total Price Sold,
+                        For Eagles: Hotel California --You May Need To Use SUM()
+                        <code>
+                            <pre>
+SELECT database.products.Name AS 'Product Name',
+       SUM(database.sales.Quantity) AS 'Sales Qty', 
+       SUM(database.sales.Quantity) * database.products.PricePerUnit AS 'Amount Sold'
+FROM database.sales
+INNER JOIN products ON database.sales.ProductID = database.products.ProductID
+WHERE database.products.Name = 'Eagles: Hotel California';
+                            </pre>
                         </code>
                     </li>
                 </ol>
