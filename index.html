@@ -203,6 +203,22 @@ ORDER BY database.employees.FirstName ASC,
 6 rows in set (0.046 sec)
                         </pre>
                     </code>
+                    <p class="text-center">Sales table description</p>
+                    <code>
+                        <pre>
++--------------+--------------+------+-----+---------------------+----------------+
+| Field        | Type         | Null | Key | Default             | Extra          |
++--------------+--------------+------+-----+---------------------+----------------+
+| SalesID      | int(11)      | NO   | PRI | NULL                | auto_increment |
+| ProductID    | int(11)      | NO   | MUL | NULL                |                |
+| Quantity     | int(11)      | NO   |     | NULL                |                |
+| PricePerUnit | decimal(8,2) | NO   |     | NULL                |                |
+| Date         | datetime     | NO   |     | current_timestamp() |                |
+| EmployeeID   | int(11)      | YES  | MUL | NULL                |                |
++--------------+--------------+------+-----+---------------------+----------------+
+6 rows in set (0.044 sec)
+                        </pre>
+                    </code>
                     <p class="text-center">Categories table description</p>
                     <code>
                         <pre>
