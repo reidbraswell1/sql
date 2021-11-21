@@ -316,6 +316,32 @@ WHERE database.products.Name = 'Eagles: Hotel California';
                             </pre>
                         </code>
                     </li>
+                    <li>Joins: Find Product Name, Reviewer Name, Rating, And Comment On The Visio TV. (Only Return For The Lowest Rating!) --<br>
+                        <span class="green-color">Another inner join but a more complicated query as it involves sub-queries and 
+                            use of the MIN() function.
+                            The top level query is selecting from a sub query that simply wants all of the reviews for a specific
+                            product. The sub query is returned as A and the top level query can now select the minimum review
+                            out of all the reviews for the item.
+                        </span>
+                        <code>
+                            <pre>
+-- Final Query selecting from sub query using MIN function     
+SELECT A.ProductID AS 'ProductID',
+       A.ProductName AS 'Product Name',
+       A.Reviewer AS 'Reviewer',
+       MIN(A.Rating) AS 'Rating',
+       A.Comment 
+-- Sub  Query
+FROM (SELECT reviews.Rating AS 'Rating',
+             reviews.ProductID AS 'ProductID',
+             products.Name AS 'ProductName',
+             reviews.Reviewer AS 'Reviewer',
+             reviews.Comment AS 'Comment' 
+      FROM reviews 
+      INNER JOIN products ON reviews.ProductID = products.ProductID
+      WHERE products.Name = 'Visio TV') AS A;</pre>
+                        </code>
+                    </li>
                 </ol>
         </div>
     </div>
