@@ -261,7 +261,7 @@ ORDER BY database.employees.FirstName ASC,
                 </code>
                 <ol>
                     <li>Joins: Select all the computers from the products table where the category name is Computers<br>
-                        A simple inner join for products that are categorized as computers.
+                        <span class="green-color">A simple inner join for products that are categorized as computers</span>
                         <code>
                             <pre>
 SELECT database.products.ProductID AS 'Product ID',
@@ -275,7 +275,7 @@ WHERE categories.Name = 'Computers';
                         </code>
                     </li>
                     <li>Joins: Find all product names, product prices, and product ratings that have a reviews rating of 5<br>
-                        An simple inner join only on products that have a review of 5.
+                        <span class="green-color">An simple inner join only on products that have a review of 5</span>
                         <code>
                             <pre>
 SELECT database.products.Name AS 'Product Name', 
@@ -289,7 +289,7 @@ WHERE database.reviews.Rating = 5;
                         </code>
                     </li>
                     <li>Joins: Find the name of the department, and the name of the category for appliances and games<br>
-                        A simple inner join on departments and categories where the category is in Appliances and Games
+                        <span class="green-color">A simple inner join on departments and categories where the category is in Appliances and Games</span>
                         <code>
                             <pre>
 SELECT database.departments.Name AS 'Dept Name',
@@ -303,7 +303,8 @@ WHERE database.categories.Name IN ('Appliances','Games');
                         </code>
                     </li>
                     <li>Joins: Find The Product Name, Total # Sold, And Total Price Sold, And Total Price Sold,
-                        For Eagles: Hotel California --You May Need To Use SUM()
+                        For Eagles: Hotel California --You May Need To Use SUM()<br>
+                        <span class="green-color">Another inner join adding an aggregation of the total sales qty for a specific product name</span>
                         <code>
                             <pre>
 SELECT database.products.Name AS 'Product Name',
