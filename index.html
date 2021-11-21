@@ -344,7 +344,11 @@ FROM (SELECT database.reviews.Rating AS 'Rating',
                         </code>
                     </li>
                     <li>Joins: Find the employee with the most total quantity sold.  Use The Sum() Function And Group By<br>
-                        <span class="green-color">In this query we have an inner join with sub queries and aggregation.  </span>
+                        <span class="green-color">In this query we have an inner join with sub queries and aggregation. 
+                            The inner most query simply sums all of the sales for each eployee and groups them by employee ID.
+                            Once we have that we can now find the maximum sales quantity. This number is what we need for the top 
+                            level query. We can now select all of the employee(s) that made the most sales.
+                        </span>
                         <code>
                             <pre>
 -- Select all of the sub-queries rows subject to the where condition
@@ -361,7 +365,8 @@ FROM
         	    database.employees.LastName AS 'LastName',
         	    database.employees.Title AS 'Title'
  	FROM database.sales
- 	INNER JOIN employees ON database.sales.EmployeeID = database.employees.EmployeeID
+ 	INNER JOIN database.employees ON 
+               database.sales.EmployeeID = database.employees.EmployeeID
  	GROUP BY database.sales.EmployeeID) AS A) 
 -- The sub-queries sales must be = to the max sales quantity from the sales table
 -- summed and grouped by employee ID.
@@ -373,6 +378,32 @@ WHERE A.Sales =
  	  (SELECT SUM(database.sales.Quantity) AS 'Sales' 
  	   FROM database.sales 
  	   GROUP BY EmployeeID) AS B);
+                            </pre>
+                        </code>
+                    </li>
+                    <li>This is the same query but listing all aggregated sales for each employee.
+                        It is ordered by the aggregated sales quantity with the highest at the top of
+                        the report.
+                        <code>
+                            <pre>
+-- Top level query selects all columns of the sub query with
+-- an ordering on the sales quantity.                                
+SELECT A.Sales AS 'Sales',
+       A.EmployeeID AS 'EmployeeID',
+       A.FirstName AS 'First Name',
+       A.LastName AS 'Last Name',
+       A.Title AS 'Title'
+FROM
+-- Sub Query sums sales grouped by employee
+    ((SELECT SUM(database.sales.Quantity) AS 'Sales', 
+                 database.sales.EmployeeID AS 'EmployeeID',
+                 database.employees.FirstName AS 'FirstName',
+                 database.employees.LastName AS 'LastName',
+                 database.employees.Title AS 'Title'
+    FROM sales
+    INNER JOIN employees ON sales.EmployeeID = employees.EmployeeID
+    GROUP BY sales.EmployeeID) AS A)
+ORDER BY Sales DESC;
                             </pre>
                         </code>
                     </li>
