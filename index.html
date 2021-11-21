@@ -332,14 +332,48 @@ SELECT A.ProductID AS 'ProductID',
        MIN(A.Rating) AS 'Rating',
        A.Comment 
 -- Sub  Query
-FROM (SELECT reviews.Rating AS 'Rating',
-             reviews.ProductID AS 'ProductID',
-             products.Name AS 'ProductName',
-             reviews.Reviewer AS 'Reviewer',
-             reviews.Comment AS 'Comment' 
-      FROM reviews 
-      INNER JOIN products ON reviews.ProductID = products.ProductID
+FROM (SELECT database.reviews.Rating AS 'Rating',
+             database.reviews.ProductID AS 'ProductID',
+             database.products.Name AS 'ProductName',
+             database.reviews.Reviewer AS 'Reviewer',
+             database.reviews.Comment AS 'Comment' 
+      FROM database.reviews 
+      INNER JOIN database.products ON 
+                 database.reviews.ProductID = database.products.ProductID
       WHERE products.Name = 'Visio TV') AS A;</pre>
+                        </code>
+                    </li>
+                    <li>Joins: Find the employee with the most total quantity sold.  Use The Sum() Function And Group By<br>
+                        <span class="green-color">In this query we have an inner join with sub queries and aggregation.  </span>
+                        <code>
+                            <pre>
+-- Select all of the sub-queries rows subject to the where condition
+SELECT     A.Sales AS 'Employee Max Sales',
+           A.EmployeeID AS 'Employee ID',
+           A.FirstName AS 'FirstName',
+           A.LastName AS 'LastName',
+           A.Title AS 'Title'
+FROM 
+-- Get All of the employee sales by employee ID as a sub-query
+	((SELECT SUM(database.sales.Quantity) AS 'Sales', 
+        	    database.sales.EmployeeID AS 'EmployeeID',
+        	    database.employees.FirstName AS 'FirstName',
+        	    database.employees.LastName AS 'LastName',
+        	    database.employees.Title AS 'Title'
+ 	FROM database.sales
+ 	INNER JOIN employees ON database.sales.EmployeeID = database.employees.EmployeeID
+ 	GROUP BY database.sales.EmployeeID) AS A) 
+-- The sub-queries sales must be = to the max sales quantity from the sales table
+-- summed and grouped by employee ID.
+WHERE A.Sales = 
+    -- Max sales from the sub query
+ 	(SELECT MAX(B.Sales) AS 'MaxSales' 
+     FROM
+     -- Find the sum of all sales for each employee
+ 	  (SELECT SUM(database.sales.Quantity) AS 'Sales' 
+ 	   FROM database.sales 
+ 	   GROUP BY EmployeeID) AS B);
+                            </pre>
                         </code>
                     </li>
                 </ol>
