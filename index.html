@@ -176,8 +176,8 @@ ORDER BY database.employees.FirstName ASC,
 SELECT * FROM database.employees
 WHERE database.employees.Title='Geek Squad' AND 
       database.employees.MiddleInitial IS NULL
-ORDER BY database.employees.FirstName ASC, 
-         database.employees.LastName ASC;
+ORDER BY database.employees.LastName ASC, 
+         database.employees.FirstName ASC;
                             </pre>
                         </code>
                     </li>
@@ -267,10 +267,10 @@ ORDER BY database.employees.FirstName ASC,
 SELECT database.products.ProductID AS 'Product ID',
        database.products.Name AS 'Product Name',
        database.categories.Name AS 'Category Name' 
-FROM products
+FROM database.products
 INNER JOIN database.categories ON 
            database.products.CategoryID = database.categories.CategoryID
-WHERE categories.Name = 'Computers';
+WHERE database.categories.Name = 'Computers';
                             </pre>
                         </code>
                     </li>
@@ -309,9 +309,9 @@ WHERE database.categories.Name IN ('Appliances','Games');
                             <pre>
 SELECT database.products.Name AS 'Product Name',
        SUM(database.sales.Quantity) AS 'Sales Qty', 
-       SUM(database.sales.Quantity) * database.products.PricePerUnit AS 'Amount Sold'
+       SUM(database.sales.Quantity) * database.products.Price AS 'Amount Sold'
 FROM database.sales
-INNER JOIN products ON database.sales.ProductID = database.products.ProductID
+INNER JOIN database.products ON database.sales.ProductID = database.products.ProductID
 WHERE database.products.Name = 'Eagles: Hotel California';
                             </pre>
                         </code>
@@ -400,9 +400,10 @@ FROM
                  database.employees.FirstName AS 'FirstName',
                  database.employees.LastName AS 'LastName',
                  database.employees.Title AS 'Title'
-    FROM sales
-    INNER JOIN employees ON sales.EmployeeID = employees.EmployeeID
-    GROUP BY sales.EmployeeID) AS A)
+    FROM database.sales
+    INNER JOIN database.employees ON 
+               database.sales.EmployeeID = employees.EmployeeID
+    GROUP BY database.sales.EmployeeID) AS A)
 ORDER BY Sales DESC;
                             </pre>
                         </code>
