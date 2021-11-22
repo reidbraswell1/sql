@@ -407,10 +407,23 @@ FROM
 ORDER BY Sales DESC;
                             </pre>
                         </code>
-                    </li>
-                    <li>
+                    </li>BONUS: Your goal is to write a query that serves as an employee sales report.
+                         This query should return the employeeID, the employee\'s first and last name, 
+                        the name of each product, how many of that product they sold --
                         <code>
-                            <pre></pre>
+                            <pre>
+SELECT database.employees.EmployeeID AS 'EmployeeID',
+       database.employees.FirstName AS 'FirstName',
+       database.employees.LastName AS 'LastName',
+       database.products.Name AS 'Product Name',
+       SUM(database.sales.Quantity) AS 'Total Sold'
+FROM database.sales
+INNER JOIN database.employees ON 
+           database.sales.EmployeeID = database.employees.EmployeeID
+INNER JOIN database.products ON 
+           database.sales.ProductID = database.products.ProductID
+GROUP BY database.sales.EmployeeID;
+                            </pre>
                         </code>
                     </li>
                 </ol>
