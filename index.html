@@ -388,7 +388,8 @@ WHERE A.Sales =
                     </li>
                     <li>This is the same query but listing all aggregated sales for each employee.
                         It is ordered by the aggregated sales quantity with the highest at the top of
-                        the report.
+                        the report.<br>
+                        <span class="green-color">Comment</span>
                         <code>
                             <pre>
 -- Top level query selects all columns of the sub query with
@@ -413,9 +414,12 @@ FROM
 ORDER BY Sales DESC;
                             </pre>
                         </code>
-                    </li>BONUS: Your goal is to write a query that serves as an employee sales report.
+                    </li>
+                    <li>Your goal is to write a query that serves as an employee sales report.
                          This query should return the employeeID, the employee\'s first and last name, 
-                        the name of each product, how many of that product they sold --
+                        the name of each product, how many of that product they sold<br>
+                        <span class="green-color">Comment</span>
+                    </li>
                         <code>
                             <pre>
 SELECT database.employees.EmployeeID AS 'EmployeeID',
