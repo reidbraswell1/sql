@@ -296,7 +296,8 @@ SELECT database.departments.Name AS 'Dept Name',
        database.categories.Name AS 'Category Name'
 FROM database.departments 
 INNER JOIN database.categories ON 
-           database.departments.DepartmentID = database.categories.DepartmentID
+           database.departments.DepartmentID = 
+           database.categories.DepartmentID
 WHERE database.categories.Name IN ('Appliances','Games');
  
                             </pre>
@@ -311,7 +312,8 @@ SELECT database.products.Name AS 'Product Name',
        SUM(database.sales.Quantity) AS 'Sales Qty', 
        SUM(database.sales.Quantity) * database.products.Price AS 'Amount Sold'
 FROM database.sales
-INNER JOIN database.products ON database.sales.ProductID = database.products.ProductID
+INNER JOIN database.products ON 
+           database.sales.ProductID = database.products.ProductID
 WHERE database.products.Name = 'Eagles: Hotel California';
                             </pre>
                         </code>
@@ -339,7 +341,8 @@ FROM (SELECT database.reviews.Rating AS 'Rating',
              database.reviews.Comment AS 'Comment' 
       FROM database.reviews 
       INNER JOIN database.products ON 
-                 database.reviews.ProductID = database.products.ProductID
+                 database.reviews.ProductID = 
+                 database.products.ProductID
       WHERE products.Name = 'Visio TV') AS A;</pre>
                         </code>
                     </li>
@@ -366,9 +369,11 @@ FROM
         	    database.employees.Title AS 'Title'
  	FROM database.sales
  	INNER JOIN database.employees ON 
-               database.sales.EmployeeID = database.employees.EmployeeID
+               database.sales.EmployeeID = 
+               database.employees.EmployeeID
  	GROUP BY database.sales.EmployeeID) AS A) 
--- The sub-queries sales must be = to the max sales quantity from the sales table
+-- The sub-queries sales must be = to the max sales 
+-- quantity from the sales table
 -- summed and grouped by employee ID.
 WHERE A.Sales = 
     -- Max sales from the sub query
@@ -402,7 +407,8 @@ FROM
                  database.employees.Title AS 'Title'
     FROM database.sales
     INNER JOIN database.employees ON 
-               database.sales.EmployeeID = employees.EmployeeID
+               database.sales.EmployeeID = 
+               employees.EmployeeID
     GROUP BY database.sales.EmployeeID) AS A)
 ORDER BY Sales DESC;
                             </pre>
@@ -419,9 +425,11 @@ SELECT database.employees.EmployeeID AS 'EmployeeID',
        SUM(database.sales.Quantity) AS 'Total Sold'
 FROM database.sales
 INNER JOIN database.employees ON 
-           database.sales.EmployeeID = database.employees.EmployeeID
+           database.sales.EmployeeID = 
+           database.employees.EmployeeID
 INNER JOIN database.products ON 
-           database.sales.ProductID = database.products.ProductID
+           database.sales.ProductID = 
+           database.products.ProductID
 GROUP BY database.sales.EmployeeID;
                             </pre>
                         </code>
