@@ -244,9 +244,27 @@ ORDER BY database.employees.LastName ASC,
 2 rows in set (0.046 sec)
                         </pre>
                     </code>
+                    <p class="text-center">Employees table description</p>
+                    <code>
+                        <pre>
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| EmployeeID    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| FirstName     | varchar(45) | YES  |     | NULL    |                |
+| MiddleInitial | varchar(45) | YES  |     | NULL    |                |
+| LastName      | varchar(45) | YES  |     | NULL    |                |
+| EmailAddress  | varchar(45) | YES  |     | NULL    |                |
+| PhoneNumber   | varchar(45) | YES  |     | NULL    |                |
+| Title         | varchar(45) | YES  |     | NULL    |                |
+| DateOfBirth   | datetime    | YES  |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+8 rows in set (0.035 sec)
+                        </pre>
+                    </code>
                     <p class="text-center">Reviews table description</p>
-                <code>
-                    <pre>
+                    <code>
+                        <pre>
 +-----------+--------------+------+-----+---------+----------------+
 | Field     | Type         | Null | Key | Default | Extra          |
 +-----------+--------------+------+-----+---------+----------------+
@@ -389,7 +407,10 @@ WHERE A.Sales =
                     <li>This is the same query but listing all aggregated sales for each employee.
                         It is ordered by the aggregated sales quantity with the highest at the top of
                         the report.<br>
-                        <span class="green-color">Comment</span>
+                        <span class="green-color">This query is identical to the one above except 
+                            that the sub query will return all of summed sales for each employee. The 
+                            high level query will then order it by sales (highest to lowest).
+                        </span>
                         <code>
                             <pre>
 -- Top level query selects all columns of the sub query with
@@ -416,9 +437,12 @@ ORDER BY Sales DESC;
                         </code>
                     </li>
                     <li>Your goal is to write a query that serves as an employee sales report.
-                         This query should return the employeeID, the employee\'s first and last name, 
+                         This query should return the employeeID, the employee's first and last name, 
                         the name of each product, how many of that product they sold<br>
-                        <span class="green-color">Comment</span>
+                        <span class="green-color">This query is considerably simpler with the exception 
+                            of 2 inner joins to get the required information. We basically want the
+                            sum of all sales for each product by employeeID.
+                        </span>
                     </li>
                         <code>
                             <pre>
